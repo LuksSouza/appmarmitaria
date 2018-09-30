@@ -19,8 +19,8 @@ public class PratoService {
 		return pratoRepository.findAll();
 	}
 
-	public void salvar(Prato prato) {
-		pratoRepository.save(prato);
+	public Prato salvar(Prato prato) {
+		return pratoRepository.save(prato);
 	}
 
 	public Prato buscar(Long id) {
