@@ -1,5 +1,6 @@
 package com.marmitaria.app.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.marmitaria.app.domain.Pedido;
+import com.marmitaria.app.dto.PedidoDTO;
 import com.marmitaria.app.repository.PedidoRepository;
 
 @Service
@@ -15,8 +17,15 @@ public class PedidoService {
 	@Autowired
 	private PedidoRepository pedidoRepository;
 
-	public List<Pedido> listarPedidos() {
-		return pedidoRepository.findAll();
+	public List<PedidoDTO> listarPedidos() {
+		List<Pedido> pedidos = pedidoRepository.findAll();
+		List<PedidoDTO> dtos = new ArrayList<>();
+		
+		pedidos.forEach(p -> {
+			dtos.add(new PedidoDTO(p));
+		});
+		
+		return dtos; 
 	}
 
 	public Pedido salvar(Pedido pedido) {

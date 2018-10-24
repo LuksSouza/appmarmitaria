@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.marmitaria.app.domain.Pedido;
+import com.marmitaria.app.dto.PedidoDTO;
 import com.marmitaria.app.service.PedidoService;
 
 @RestController
@@ -25,7 +26,7 @@ public class PedidoController {
 	private PedidoService pedidoService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Pedido>> listar() {
+	public ResponseEntity<List<PedidoDTO>> listar() {
 		return ResponseEntity.status(HttpStatus.OK).body(pedidoService.listarPedidos());
 	}
 	
