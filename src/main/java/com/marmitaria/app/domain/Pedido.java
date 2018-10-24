@@ -4,35 +4,44 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
+@Table(name = "PEDIDO")
 public class Pedido {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "PEDIDO_ID")
 	private Long id;
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
+	@Column(name = "DATA")
 	private Date data;
 
+	@Column(name = "QUANTIDADE")
 	private int quantidade;
 
-	@OneToOne
-	@JoinColumn(name="cliente_id")
+	@ManyToOne
+	@JoinColumn(name="CLIENTE_ID")
 	private Cliente cliente;
 
-	@OneToOne
-	@JoinColumn(name="prato_id")
-	private Prato prato;
+	@ManyToMany
+	@JoinTable(name = "PRATOS_PEDIDOS")
+	private List<Prato> pratos;
 
 	public Long getId() {
 		return id;
@@ -66,12 +75,12 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
-	public Prato getPrato() {
-		return prato;
+	public List<Prato> getPratos() {
+		return pratos;
 	}
 
-	public void setPrato(Prato prato) {
-		this.prato = prato;
+	public void setPratos(List<Prato> pratos) {
+		this.pratos = pratos;
 	}	
 
 }
