@@ -36,7 +36,7 @@ public class Pedido {
 	private int quantidade;
 
 	@ManyToOne
-	@JoinColumn(name="CLIENTE_ID")
+	@JoinColumn(name = "CLIENTE_ID")
 	private Cliente cliente;
 
 	@ManyToMany
@@ -81,6 +81,6 @@ public class Pedido {
 
 	public void setPratos(List<Prato> pratos) {
 		this.pratos = pratos;
-	}	
+	}
 
 }

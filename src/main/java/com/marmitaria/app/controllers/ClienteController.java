@@ -21,52 +21,52 @@ import com.marmitaria.app.service.ClienteService;
 @RestController
 @RequestMapping("/cliente")
 public class ClienteController {
-	
+
 	@Autowired
 	private ClienteService clienteService;
-	
-	@RequestMapping(method=RequestMethod.GET)
+
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Cliente>> listar() {
 		return ResponseEntity.status(HttpStatus.OK).body(clienteService.listar());
 	}
-	
-	@RequestMapping(method=RequestMethod.POST)
+
+	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> salvar(@RequestBody Cliente cliente) {
 		cliente = clienteService.salvar(cliente);
-		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-					.buildAndExpand(cliente.getId()).toUri();
-		
+
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cliente.getId())
+				.toUri();
+
 		return ResponseEntity.created(uri).build();
 	}
-	
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Cliente> buscar(@PathVariable("id") Long id) {
 		Cliente cliente = clienteService.buscar(id);
-		
+
 		if (cliente == null)
-			return ResponseEntity.notFound().build();			
-			
+			return ResponseEntity.notFound().build();
+
 		return ResponseEntity.status(HttpStatus.OK).body(cliente);
 	}
-	
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> excluir(@PathVariable("id") Long id) {
 		try {
 			clienteService.excluir(id);
 		} catch (EmptyResultDataAccessException e) {
 			return ResponseEntity.notFound().build();
 		}
-		
+
 		return ResponseEntity.noContent().build();
 	}
-	
-	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> atualizar(@RequestBody Cliente cliente, @PathVariable("id") Long id) {
 		cliente.setId(id);
 		clienteService.salvar(cliente);
-		
-		return ResponseEntity.noContent().build();		
+
+		return ResponseEntity.noContent().build();
 	}
-	
+
 }

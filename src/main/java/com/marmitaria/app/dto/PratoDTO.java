@@ -7,7 +7,7 @@ import com.marmitaria.app.domain.Prato;
 public class PratoDTO implements Serializable {
 
 	private String nomeDoPrato;
-	
+
 	public PratoDTO(Prato p) {
 		super();
 		this.nomeDoPrato = p.getNome();
@@ -20,5 +20,5 @@ public class PratoDTO implements Serializable {
 	public void setNomeDoPrato(String nomeDoPrato) {
 		this.nomeDoPrato = nomeDoPrato;
 	}
-	
+
 }

@@ -13,7 +13,7 @@ public class PedidoDTO implements Serializable {
 	private int quantidade;
 	private String nomeDoCliente;
 	private List<PratoDTO> pratos = new ArrayList<>();
-	
+
 	public PedidoDTO(Pedido p) {
 		super();
 		this.id = p.getId();
@@ -55,5 +55,5 @@ public class PedidoDTO implements Serializable {
 	public void setPratos(List<PratoDTO> pratos) {
 		this.pratos = pratos;
 	}
-		
+
 }

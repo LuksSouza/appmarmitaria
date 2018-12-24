@@ -16,18 +16,18 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "PRATO")
 public class Prato {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PRATO_ID")
 	private Long id;
-	
+
 	@Column(name = "NOME")
 	private String nome;
-	
+
 	@Column(name = "DESCRICAO")
 	private String descricao;
-	
+
 	@ManyToMany(mappedBy = "pratos")
 	private List<Pedido> pedidos;
 
@@ -54,5 +54,5 @@ public class Prato {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
+
 }

@@ -30,7 +30,7 @@ public class ClienteService {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 		return c.isPresent() ? c.get() : null;
 	}
 
@@ -40,7 +40,7 @@ public class ClienteService {
 
 	public void excluir(Long id) {
 		Cliente cliente = buscar(id);
-		
+
 		if (cliente != null)
 			clienteRepository.delete(cliente);
 	}

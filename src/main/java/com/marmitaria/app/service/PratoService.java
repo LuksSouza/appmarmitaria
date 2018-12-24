@@ -11,7 +11,7 @@ import com.marmitaria.app.repository.PratoRepository;
 
 @Service
 public class PratoService {
-	
+
 	@Autowired
 	private PratoRepository pratoRepository;
 
@@ -25,19 +25,19 @@ public class PratoService {
 
 	public Prato buscar(Long id) {
 		Optional<Prato> prato = null;
-		
+
 		try {
 			prato = pratoRepository.findById(id);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 		return prato.isPresent() ? prato.get() : null;
 	}
 
 	public void excluir(Long id) {
 		Prato prato = buscar(id);
-		
+
 		if (prato != null)
 			pratoRepository.delete(prato);
 	}

@@ -25,7 +25,7 @@ public class Cliente {
 
 	@Column(name = "ATIVO")
 	private Boolean ativo;
-	
+
 	@OneToMany
 	@JoinColumn(name = "CLIENTE_ID")
 	private List<Pedido> pedidos;

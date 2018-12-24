@@ -21,7 +21,7 @@ import com.marmitaria.app.service.PedidoService;
 @RestController
 @RequestMapping("/pedido")
 public class PedidoController {
-	
+
 	@Autowired
 	private PedidoService pedidoService;
 
@@ -29,45 +29,41 @@ public class PedidoController {
 	public ResponseEntity<List<PedidoDTO>> listar() {
 		return ResponseEntity.status(HttpStatus.OK).body(pedidoService.listarPedidos());
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> salvar(@RequestBody Pedido pedido) {
 		pedido = pedidoService.salvar(pedido);
-		
-		URI uri = ServletUriComponentsBuilder
-					.fromCurrentRequest()
-					.path("{id}")
-					.buildAndExpand(pedido.getId())
-					.toUri();
-		
+
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{id}").buildAndExpand(pedido.getId()).toUri();
+
 		return ResponseEntity.created(uri).build();
 	}
-	
+
 	public ResponseEntity<Pedido> buscar(Long id) {
 		Pedido pedido = pedidoService.buscar(id);
-		
+
 		if (pedido == null)
 			return ResponseEntity.notFound().build();
-		
+
 		return ResponseEntity.status(HttpStatus.OK).body(pedido);
 	}
-	
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> excluir(@PathVariable("id") Long id) {
 		try {
 			pedidoService.excluir(id);
 		} catch (EmptyResultDataAccessException e) {
 			return ResponseEntity.notFound().build();
 		}
-		
+
 		return ResponseEntity.noContent().build();
 	}
-	
-	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> atualizar(@RequestBody Pedido pedido, @PathVariable("id") Long id) {
 		pedido.setId(id);
 		pedidoService.salvar(pedido);
-		
+
 		return ResponseEntity.noContent().build();
 	}
 }

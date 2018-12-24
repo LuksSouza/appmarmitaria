@@ -23,51 +23,47 @@ public class PratoController {
 
 	@Autowired
 	private PratoService pratoService;
-	
-	@RequestMapping(method=RequestMethod.GET)
+
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Prato>> listar() {
-		return ResponseEntity.status(HttpStatus.OK).body(pratoService.listar()); 
+		return ResponseEntity.status(HttpStatus.OK).body(pratoService.listar());
 	}
-	
-	@RequestMapping(method=RequestMethod.POST)
+
+	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> salvar(@RequestBody Prato prato) {
 		prato = pratoService.salvar(prato);
-		
-		URI uri = ServletUriComponentsBuilder
-					.fromCurrentRequest()
-					.path("{id}")
-					.buildAndExpand(prato)
-					.toUri();
-		
+
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{id}").buildAndExpand(prato).toUri();
+
 		return ResponseEntity.created(uri).build();
 	}
-	
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Prato> buscar(@PathVariable("id") Long id) {
 		Prato prato = pratoService.buscar(id);
-		
+
 		if (prato == null)
 			return ResponseEntity.notFound().build();
-		
+
 		return ResponseEntity.status(HttpStatus.OK).body(prato);
 	}
-	
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> excluir(@PathVariable("id") Long id) {
 		try {
-			pratoService.excluir(id);			
+			pratoService.excluir(id);
 		} catch (EmptyResultDataAccessException e) {
 			return ResponseEntity.notFound().build();
 		}
-		
+
 		return ResponseEntity.noContent().build();
 	}
-	
-	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> atualizar(@RequestBody Prato prato, @PathVariable("id") Long id) {
 		prato.setId(id);
 		pratoService.salvar(prato);
-		
+
 		return ResponseEntity.noContent().build();
 	}
 }
